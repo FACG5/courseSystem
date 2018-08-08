@@ -1,21 +1,18 @@
-const dbConnection = require("../db_connection")
+const dbConnection = require("../db_connection");
 
-const addStudent=(newStd,cb)=>{
-
+const addStudent = (newStd, cb) => {
   let sql = {
+    text: "INSERT INTO students (first_name,surname,gender) VALUES ($1,$2,$3)",
+    values: [newStd.name, newStd.surname, newStd.gender]
+  };
 
-    text : "INSERT INTO students (first_name,surname,gender) VALUES ($1,$2,$3)",
-    values:[newStd.name,newStd.surname,newStd.gender]
-  } 
-  
-  dbConnection.query(sql,(err,res)=>{
-      if(err){
-          cb(err)
-      }
-      else{
-cb(null,res.rowCount)
-      }
-  })
-}
+  dbConnection.query(sql, (err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, res.rowCount);
+    }
+  });
+};
 
-module.exports=addStudent
+module.exports = addStudent;

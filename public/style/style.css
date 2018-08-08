@@ -65,7 +65,7 @@ main {
   color: white;
 }
 
-.addStudent input ,.register input{
+.addStudent input ,.register input,.register select{
   margin: 1vh;
   width: 135px;
   border: none;
@@ -104,30 +104,30 @@ main {
   display: flex;
 }
 
-#studentTable {
+#studentTable ,#registerTable{
   border-radius: 10px;
 
 }
 
 #studentTable td,
-#studentTable th {
+#studentTable th ,#registerTable td ,#registerTable th {
   /* border: 1px solid rgb(160, 158, 158); */
   padding: 2px;
   text-align: center;
 }
 
-#studentTable tr {
+#studentTable tr , #registerTable tr{
   background-color: #f2f2f2;
   font-family: cairo;
   font-weight: bold;
   font-size: 15px;
 }
 
-#studentTable tr:hover {
+#studentTable tr:hover ,#registerTable tr:hover {
   background-color: #ddd;
 }
 
-#studentTable th {
+#studentTable th ,#registerTable th{
 
   border-radius: 10px 10px 0px 0px;
 width: 10%;
