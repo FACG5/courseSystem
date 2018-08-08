@@ -44,13 +44,12 @@ Firstly we worked on the modularization of our code ,and file structure, then wo
 ---
 
 ## INSTALLATION INSTRUCTIONS
-
-Clone this repository
-Run npm install
-Create a config.env filter
-Add export DB_URL linl
-run npm run start to run the project
-run npm test to run tests
+- Clone this repository
+- Run ```npm install```
+- Create a ```config.env``` filter
+- Add ```export DB_URL =``` plus the DB_URL 
+- run ```npm run start``` to run the project
+- run ```npm test``` to run tests
 
 ---
 
