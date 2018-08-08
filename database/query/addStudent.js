@@ -13,7 +13,12 @@ const addStudent=(newStd,cb)=>{
           cb(err)
       }
       else{
+<<<<<<< HEAD
 cb(null,res.rowCount)
+=======
+console.log((res));
+
+>>>>>>> d6161b26ccc44496c2fec5d2eed7ab4448fc9e1d
       }
   })
 }
