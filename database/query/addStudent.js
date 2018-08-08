@@ -13,8 +13,7 @@ const addStudent=(newStd,cb)=>{
           cb(err)
       }
       else{
-console.log((res));
-
+cb(null,res.rowCount)
       }
   })
 }

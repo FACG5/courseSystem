@@ -25,6 +25,7 @@
     "tape": "^4.9.1"
   },
   "dependencies": {
+    "alertifyjs": "^1.11.1",
     "pg": "^7.4.3"
   }
 }
