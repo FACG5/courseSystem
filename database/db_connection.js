@@ -1,13 +1,17 @@
 const pg = require('pg')
 
 require('env2')('./config.env')
-
-if(!process.env.DB_URL) throw new Error('problem in URL')
+let URL = process.env.DB_URL;
+if(process.env.NODE_ENV=='test'){
+    URL = process.env.TEST_DB_URL;
+    }
+    
+if(!URL) throw new Error('problem in URL')
 
 const options = { 
 
     ssl:true,
-    connectionString:process.env.DB_URL
+    connectionString:URL
 }
 
 module.exports=new pg.Pool(options);
