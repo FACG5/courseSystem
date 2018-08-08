@@ -43,3 +43,18 @@ addStudent.addEventListener("click", e => {
     }
   });
 });
+
+document.getElementById("deleteStudent").addEventListener("click", e => {
+  e.preventDefault();
+  let deleteStudent =document.getElementById("deleteName").value
+
+  
+  
+  request("POST", "/deleteStudent", deleteStudent, (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res);
+    }
+  });
+});

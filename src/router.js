@@ -13,6 +13,8 @@ const router = (req, res) => {
     handlers.loadRegisterPage(res);
   }else if (endpoint==="/addStudent"){
 handlers.addingStudent(req,res);
+  } else if (endpoint==="/deleteStudent"){
+    handlers.deletingStudent(req,res);
   } else {
   }
 };

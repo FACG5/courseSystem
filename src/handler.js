@@ -3,7 +3,7 @@ const path = require("path");
 const getStudents = require("../database/query/getStudents");
 const getReg = require("../database/query/getReg");
 const addStudent = require("../database/query/addStudent")
-
+const deleteStudent = require("../database/query/deleteStudent")
 handlePage = (target, req, res) => {
   const reqPage = {
     home: "public/index.html",
@@ -39,25 +39,53 @@ const loadRegisterPage = response => {
   });
 };
 
-const addingStudent=(request,response)=>{
-let newStd = ""
-request.on("data",chunk=>{
+const addingStudent = (request, response) => {
+  let newStd = ""
+  request.on("data", chunk => {
 
-    newStd+=chunk;
-})
-request.on("end",()=>{
- newStd= JSON.parse(newStd);
- addStudent(newStd,(err,res)=>{
-     if(err){
-        response.end(err)  
-     }
-     else{
-        response.end(res)
-     }
- })
-    
-})
+    newStd += chunk;
+  })
+  request.on("end", () => {
+    newStd = JSON.parse(newStd);
+    addStudent(newStd, (err, res) => {
+      if (err) {
+        response.end(err)
+      }
+      else {
+        console.log(res);
+
+        response.end(JSON.stringify(res))
+      }
+    })
+
+  })
 
 }
 
-module.exports = { handlePage, loadStudentsPage, loadRegisterPage,addingStudent };
+const deletingStudent = (request, response) => {
+  let deleteStuentId = ""
+  request.on("data", chunk => {
+
+    deleteStuentId += chunk;
+  })
+  request.on("end", () => {
+    console.log(typeof deleteStuentId);
+
+    deleteStudent(Number(deleteStuentId), (err, res) => {
+      if (err) {
+
+        response.end(err)
+      }
+      else {
+if(res==0){
+  res = "Student Not Found !"
+}
+        response.end(JSON.stringify(res))
+      }
+    })
+
+  })
+
+}
+
+module.exports = { handlePage, loadStudentsPage, loadRegisterPage, addingStudent, deletingStudent };
