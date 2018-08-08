@@ -8,12 +8,14 @@ const deleteReg = (id, cb) => {
     };
  
 
-    dbConnection.query(sql1, (err, res) => {
+    dbConnection.query(sql, (err, res) => {
 
                 if (err) {
                     cb(err)
                 }
                 else {
+                    console.log(res.rowCount);
+                    
                     cb(null,res.rowCount)
                 }
            

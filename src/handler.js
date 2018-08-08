@@ -1,12 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 const getStudents = require("../database/query/getStudents");
-const getReg = require("../database/query/getReg");
-const addStudent = require("../database/query/addStudent")
-const deleteStudent = require("../database/query/deleteStudent")
-
-const addReg = require("../database/query/addReg")
-const deleteReg = require("../database/query/deleteReg")
+const getReg = require("../database/query/getReq");
+const deleteStudent = require("../database/query/deleteStudent");
+const addStudent = require("../database/query/addStudent");
+const addReg = require("../database/query/addReg");
+const deleteReg = require("../database/query/deleteReg");
 
 handlePage = (target, req, res) => {
   const reqPage = {
@@ -26,9 +25,9 @@ handlePage = (target, req, res) => {
 const loadStudentsPage = response => {
   getStudents((err, res) => {
     if (err) {
-      response.end(err);
+      response.end(JSON.stringify({ err: err }));
     } else {
-      response.end(JSON.stringify(res));
+      response.end(JSON.stringify({ err: null, result: JSON.stringify(res) }));
     }
   });
 };
@@ -36,121 +35,122 @@ const loadStudentsPage = response => {
 const loadRegisterPage = response => {
   getReg((err, res) => {
     if (err) {
-      response.end(err);
+      response.end(JSON.stringify({ err: err }));
     } else {
-      response.end(JSON.stringify(res));
+      response.end(JSON.stringify({ err: null, result: JSON.stringify(res) }));
     }
   });
 };
 
 const addingStudent = (request, response) => {
-  if (request.method == "POST") { 
-  let newStd = ""
+  let newStd = "";
   request.on("data", chunk => {
-
     newStd += chunk;
-  })
+  });
   request.on("end", () => {
     newStd = JSON.parse(newStd);
-    addStudent(newStd, (err, res) => {
-      if (err) {
-        response.end(err)
+
+    if (newStd.name && newStd.surname && newStd.gender) {
+      if (newStd.gender == "male" || newStd.gender == "female") {
+        addStudent(newStd, (err, res) => {
+          if (err) {
+            response.end(JSON.stringify({ err: err }));
+          } else {
+            response.end(
+              JSON.stringify({ err: null, result: JSON.stringify(res) })
+            );
+          }
+        });
+      } else {
+        response.end(
+          JSON.stringify({ err: "gender should be male or female" })
+        );
       }
-      else {
-        console.log(res);
-
-        response.end(JSON.stringify(res))
-      }
-    })
-
-  })
-
-} 
-
-}
+    } else {
+      response.end(JSON.stringify({ err: "Please Enter Data ! " }));
+    }
+  });
+};
 
 const deletingStudent = (request, response) => {
-  if (request.method == "POST") { 
-  let deleteStuentId = ""
+  let deleteStuentId = "";
   request.on("data", chunk => {
-
     deleteStuentId += chunk;
-  })
+  });
   request.on("end", () => {
-    console.log(typeof deleteStuentId);
 
     deleteStudent(Number(deleteStuentId), (err, res) => {
       if (err) {
-
-        response.end(err)
+        response.end(JSON.stringify({ err: err }));
+      } else {
+        if (res == 0) {
+          response.end(JSON.stringify({ err: "Student Not Found !" }));
+        } else {
+          response.end(
+            JSON.stringify({ err: null, result: "Student Deleted" })
+          );
+        }
       }
-      else {
-if(res==0){
-  res = "Student Not Found !"
-}
-        response.end(JSON.stringify(res))
-      }
-    })
+    });
+  });
+};
 
-  })
-}
-
-}
-
+module.exports = {
+  handlePage,
+  loadStudentsPage,
+  loadRegisterPage,
+  addingStudent,
+  deletingStudent
+};
 ////////////////////////////////////Register///////////////////////////////////////////////
 const addingRegister = (request, response) => {
-  let newReg = ""
+  let newReg = "";
   request.on("data", chunk => {
-
     newReg += chunk;
-  })
+  });
   request.on("end", () => {
     newReg = JSON.parse(newReg);
-    addReg (newReg, (err, res) => {
-      if (err) {
-        response.end(err)
-      }
-      else {
-        console.log(res);
-        response.end(JSON.stringify(res))
-      }
-    })
 
-  })
-
-}
+    if (newReg.std_id && newReg.trainer_name && newReg.course_name) {
+      addReg(newReg, (err, res) => {
+        if (err) {
+          response.end(JSON.stringify({ err: "Error !" }));
+        } else {
+          response.end(
+            JSON.stringify({ err: null, result: "Course Registered" })
+          );
+        }
+      });
+    } else {
+      response.end(JSON.stringify({ err: "Choose Student !" }));
+    }
+  });
+};
 
 const deletingRegister = (request, response) => {
-  let deleteRegId = ""
+  let deleteRegId = "";
   request.on("data", chunk => {
-
     deleteRegId += chunk;
-  })
+  });
   request.on("end", () => {
-
     deleteReg(Number(deleteRegId), (err, res) => {
       if (err) {
-
-        response.end(err)
+        response.end(JSON.stringify({ err: "Error While Deleting !" }));
+      } else {
+        response.end(
+          JSON.stringify({ err: null, result: "Registration Deleted" })
+        );
       }
-      else {
-if(res==0){
-  res = "Student Not Found !"
-}
-        response.end(JSON.stringify(res))
-      }
-    })
+    });
+  });
+};
 
-  })
-
-}
-
-
-module.exports = { 
-    handlePage,
-    loadStudentsPage,
-    loadRegisterPage,
-    addingStudent,
-    deletingStudent,
-    addingRegister,
-    deletingRegister };
+module.exports = {
+  handlePage,
+  loadStudentsPage,
+  loadRegisterPage,
+  addingStudent,
+  deletingStudent,
+  addingRegister,
+  deletingRegister
+};

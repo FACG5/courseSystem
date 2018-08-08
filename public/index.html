@@ -5,38 +5,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/public/style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+
+    <!-- include the style -->
+    <link rel="stylesheet" href="/public/alertifyjs/css/alertify.min.css" />
+    <!-- include a theme -->
+    <link rel="stylesheet" href="/public/alertifyjs/css/themes/default.min.css" />
+
     <title>Document</title>
 </head>
 
 <body>
-    <button id="getStudent">getStudent </button>
-    <button id="getRegistration">getRegistration</button>
-    <input type="text" id="name">
-    <input type="text" id="surName">
-    <input type="text" id="gender">
-
-    <button id="addStudent">addStudent </button>
-
-
-    <input type="text" id="deleteName">
-    <button id="deleteStudent">Delete Student </button>
-
-<br>
-<br>
-
-    <input type="text" id="std_id">
-    <input type="text" id="course_name">
-    <input type="text" id="trainer_name">
-
-    <button id="addRegister">addRegister </button>
-
-    <input type="text" id="deleteregid">
-    <button id="deleteRegister">addRegister </button>
+    <main>
+        <div class="student" id="student">
+            <h1>Students</h1>
+            <div class="addStudent" id="addStudent">
+                <form>
+                    <input type="text" name="studentName" id="newStdName" placeholder="Name">
+                    <input type="text" name="studentSurname" id="newStdSurname" placeholder="Surname">
+                    <input type="text" name="studentGender" id="newStdGender" placeholder="Gender">
+                    <button id="addStudentButton">Add New Student</button>
+                </form>
 
 
 
 
+            </div>
+            <div id="table">
+                <table id="studentTable">
+
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Gender</th>
+                        <th>Delete </th>
+                        <th>Reg </th>
+
+                    </tr>
+
+
+
+
+                </table>
+
+            </div>
+        </div>
+
+        <div class="register" id="register">
+            <h1>Register</h1>
+
+            <form>
+                <input readonly type="text" id="regStdName" placeholder="Name">
+                <select type="text" name="Trainer" id="trainerSelect">
+                    <option value="" disabled selected>Select Trainer</option>
+
+                    <option value="ali">ali</option>
+                    <option value="ahmad">ahmad</option>
+                    <option value="marwan">marwan</option>
+
+                </select>
+                <select type="text" name="courseSelect" id="courseSelect">
+                    <option value="" disabled selected>Select Course</option>
+
+                    <option value="Math">Math</option>
+                    <option value="English">English</option>
+                    <option value="Science">Science</option>
+
+                </select>
+                <button id="regButton">Register Course</button>
+            </form>
+            <div id="table">
+                <table id="registerTable">
+
+                    <tr>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Trainer</th>
+                        <th>Delete </th>
+                    </tr>
+
+
+
+
+                </table>
+
+            </div>
+        </div>
+    </main>
 </body>
+<script src="/public/alertifyjs/alertify.min.js"></script>
+
 <script src="/public/js/fetch.js"></script>
 <script src="/public/js/dom.js"></script>
 

@@ -4,7 +4,12 @@ const request = (method, url, data, cb) => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         var result = JSON.parse(xhr.responseText);
-        cb(null, result);
+        if (result.err) {
+          cb(result.err);
+        } else {
+          
+          cb(null, result.result);
+        }
       } else {
         cb(new TypeError("Something is Error ! "));
       }
