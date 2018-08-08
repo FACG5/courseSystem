@@ -15,7 +15,14 @@ const router = (req, res) => {
 handlers.addingStudent(req,res);
   } else if (endpoint==="/deleteStudent"){
     handlers.deletingStudent(req,res);
-  } else {
+  } else if (endpoint==="/addRegister"){
+    handlers.addingRegister(req,res);
+      } else if (endpoint==="/deleteRegister"){
+        handlers.deletingRegister(req,res);
+      } 
+  
+  
+  else {
   }
 };
 

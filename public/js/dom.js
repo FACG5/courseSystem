@@ -48,8 +48,6 @@ document.getElementById("deleteStudent").addEventListener("click", e => {
   e.preventDefault();
   let deleteStudent =document.getElementById("deleteName").value
 
-  
-  
   request("POST", "/deleteStudent", deleteStudent, (err, res) => {
     if (err) {
       console.log(err);
@@ -58,3 +56,41 @@ document.getElementById("deleteStudent").addEventListener("click", e => {
     }
   });
 });
+
+
+const std_id = document.getElementById('std_id')
+const course_name = document.getElementById('course_name')
+const trainer_name = document.getElementById('trainer_name')
+const addRegister = document.getElementById('addRegister')
+
+addRegister.onclick = ()=>{
+
+  const regdata = {
+    std_id: std_id.value,
+    course_name: course_name.value,
+    trainer_name: trainer_name.value
+  }
+
+  request("POST", "/addRegister", JSON.stringify(regdata), (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res);
+    }
+  });
+}
+
+
+
+document.getElementById("deleteRegister").addEventListener("click", e => {
+  let deleteregid =document.getElementById("deleteregid").value;
+
+  request("POST", "/deleteStudent", deleteregid, (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res);
+    }
+  });
+});
+

@@ -4,6 +4,10 @@ const getStudents = require("../database/query/getStudents");
 const getReg = require("../database/query/getReg");
 const addStudent = require("../database/query/addStudent")
 const deleteStudent = require("../database/query/deleteStudent")
+
+const addReg = require("../database/query/addReg")
+const deleteReg = require("../database/query/deleteReg")
+
 handlePage = (target, req, res) => {
   const reqPage = {
     home: "public/index.html",
@@ -88,4 +92,60 @@ if(res==0){
 
 }
 
-module.exports = { handlePage, loadStudentsPage, loadRegisterPage, addingStudent, deletingStudent };
+////////////////////////////////////Register///////////////////////////////////////////////
+const addingRegister = (request, response) => {
+  let newReg = ""
+  request.on("data", chunk => {
+
+    newReg += chunk;
+  })
+  request.on("end", () => {
+    newReg = JSON.parse(newReg);
+    addReg (newReg, (err, res) => {
+      if (err) {
+        response.end(err)
+      }
+      else {
+        console.log(res);
+        response.end(JSON.stringify(res))
+      }
+    })
+
+  })
+
+}
+
+const deletingRegister = (request, response) => {
+  let deleteRegId = ""
+  request.on("data", chunk => {
+
+    deleteRegId += chunk;
+  })
+  request.on("end", () => {
+
+    deleteReg(Number(deleteRegId), (err, res) => {
+      if (err) {
+
+        response.end(err)
+      }
+      else {
+if(res==0){
+  res = "Student Not Found !"
+}
+        response.end(JSON.stringify(res))
+      }
+    })
+
+  })
+
+}
+
+
+module.exports = { 
+    handlePage,
+    loadStudentsPage,
+    loadRegisterPage,
+    addingStudent,
+    deletingStudent,
+    addingRegister,
+    deletingRegister };
