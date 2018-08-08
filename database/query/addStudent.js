@@ -4,7 +4,7 @@ const addStudent=(newStd,cb)=>{
 
   let sql = {
 
-    text : "INSERT INTO students (first_name,surname,gender) VALUES ($1,$2,$3)",
+    text : "INSERT INTO students (first_name,surname,gender) VALUES ($1,$2,$3) returning *",
     values:[newStd.name,newStd.surname,newStd.gender]
   } 
   
@@ -13,7 +13,7 @@ const addStudent=(newStd,cb)=>{
           cb(err)
       }
       else{
-console.log((res));
+        cb(null, res)
 
       }
   })

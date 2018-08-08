@@ -44,6 +44,7 @@ const loadRegisterPage = response => {
 };
 
 const addingStudent = (request, response) => {
+  if (request.method == "POST") { 
   let newStd = ""
   request.on("data", chunk => {
 
@@ -64,9 +65,12 @@ const addingStudent = (request, response) => {
 
   })
 
+} 
+
 }
 
 const deletingStudent = (request, response) => {
+  if (request.method == "POST") { 
   let deleteStuentId = ""
   request.on("data", chunk => {
 
@@ -89,6 +93,7 @@ if(res==0){
     })
 
   })
+}
 
 }
 
