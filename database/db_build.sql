@@ -14,7 +14,7 @@ id SERIAL PRIMARY KEY,
 std_ID INTEGER,
 course_name VARCHAR(30),
 trainer_name VARCHAR(30),
-FOREIGN KEY (std_ID) REFERENCES students(Id)
+FOREIGN KEY (std_ID) REFERENCES students(Id) ON DELETE CASCADE
 );
 
 insert into students (first_name,surname,gender) values ('ahmad' , 'libda', 'male'),

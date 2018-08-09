@@ -148,6 +148,12 @@ var renderStudentTable = results => {
             " <tr> <th>Name</th> <th>Surname</th> <th>Gender</th> <th>Delete </th><th>Reg </th></tr>"
           );
           getStudent();
+          clearTable(
+            registerTable,
+            " <tr> <th>Full Name</th> <th>Course</th> <th>Trainer</th> <th>Delete  </th></tr>"
+          );
+    
+          getRegister();
         }
       });
     });
